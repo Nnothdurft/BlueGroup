@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    table = Base.classes.histData
+    table = Base.classes.sp
     session = Session(engine)
     results = session.query(table).all()
     tableList = []
