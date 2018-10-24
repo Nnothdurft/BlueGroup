@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock Stuff</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
-    {{data}}
-    <!-- <script src="data.js"></script> -->
+    <!-- <script>
+        var data_js = '{{data|safe}}';
+    </script> -->
+    <script src="/static/js/data.js"></script>
+    <!-- <script src="{{url_for('static', filename='js/data.js')}}"></script> -->
 </body>
 </html>

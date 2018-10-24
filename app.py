@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify, json
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 import numpy as np
+from flask_cors import CORS, cross_origin
 
 engine = create_engine("sqlite:///stocks.sqlite")
 
@@ -23,7 +24,7 @@ def index():
         tableData["Date"] = column.Date
         tableData["Price"] = column.Price
         tableList.append(tableData)
-    return jsonify(tableList)
+    return jsonify(tableList) #render_template("index.html", data = json.dumps(tableList))
 
 @app.route('/year2013')
 def year2013():
