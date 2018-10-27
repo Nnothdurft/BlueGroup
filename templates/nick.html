@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Bubble Chart</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> -->
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <!-- <link rel="stylesheet" href="/static/Julie/reset.css"> -->
+    <!-- <link rel="stylesheet" href="/static/Julie/bubble_chart.css"> -->
+    <link rel="stylesheet" href="/static/Nick/css/style.css">
+    <script>
+      var csvData = '{{data|safe}}';
+    </script>
+    <script src="{{url_for('static', filename='Nick/app.js')}}"></script>
+  </head>
+  <body>
+      <header>
+          <div class="container">
+              <div id="branding">
+                  <h1><span class="highlight">Stock</span> Analysis</h1>
+              </div>
+              <nav>
+                  <ul>
+                      <li><a href="index">Home</a></li>
+                      <li><a href="elliot">Elliot</a></li>
+                      <li class="current"><a href="nick">Nick</a></li>
+                      <li><a href="julie">Julie</a></li>
+                      <li><a href="rose">Rose</a></li>
+                  </ul>
+              </nav>
+          </div>
+      </header>
+    <div class="container">
+      <div id="header">
+        <h1 id="report_title"></h1>
+      </div>
+      <div id="toolbar">
+      </div>
+      <div id="showreel"></div>
+      <div class="footer">
+        <p id="footer_text"></p>
+        <p>
+          <a href="https://github.com//Nnothdurft/BlueGroup">Github repository</a>
+        </p>
+      </div>
+    </div>
+    <!-- <script src="/static/Julie/tooltip.js"></script>
+    <script src="/static/Julie/bubble_chart.js"></script> -->
+  </body>
+</html>
