@@ -15,6 +15,9 @@ body{
     margin:auto;
     overflow:hidden;
 }
+#showreel{
+    margin:20px;
+}
 
 ul{
     margin:0;
@@ -74,9 +77,7 @@ header #branding{
 }
 
 header #branding h1{
-    margin:0;
-
-
+    margin-top:10px;
 }
 
 header nav{
@@ -193,7 +194,9 @@ footer{
     color:white;
     background-color:black;
     text-align:center;
-
+    position:fixed;
+    bottom:0px;
+    width: 100%;
 }
 
 /*media queries display is affected below **/

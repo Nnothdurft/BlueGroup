@@ -2,12 +2,27 @@ body{
     font-family: Arial,Helvetica,sans-serif;
     font-size: 15px;
     line-height:1.5;
-    margin:0;
+    margin:auto;
     padding:0;
+    position:relative;
+    width:960px;
     /* background-color: grey; */
-   
-
 }
+
+text {
+    font: 10px sans-serif;
+}
+  
+form {
+    position: absolute;
+    right: 10px;
+    top: 80px;
+}
+  
+input {
+    margin: 0 7px;
+}
+
 /*global**/
 
 .container {
@@ -73,9 +88,7 @@ header #branding{
 }
 
 header #branding h1{
-    margin:0;
-
-
+    margin-top:10px;
 }
 
 header nav{
@@ -192,8 +205,19 @@ footer{
     color:white;
     background-color:black;
     text-align:center;
-
+    position:fixed;
+    bottom:0px;
+    width: 100%;
 }
+svg {
+    font-family: "Helvetica Neue", Helvetica;
+  }
+  
+  .line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2px;
+  }
 
 /*media queries display is affected below **/
 @media(max-width:768px){

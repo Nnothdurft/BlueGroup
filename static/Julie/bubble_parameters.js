@@ -1,7 +1,7 @@
 data = JSON.parse(csvData);
 var BUBBLE_PARAMETERS = {
     "data_file": data,
-    "map_file": "static/us.json",
+    "map_file": "static/Julie/us.json",
     "report_title": "S&P 500 Market Cap",
     "footer_text": "Washington University Data Analytics - 2018 Blue Group.",
     "width": 940,
