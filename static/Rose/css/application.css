@@ -26,37 +26,52 @@
     display: flex;
     justify-content: center;
     height: 5px;
+    margin-left: 200px;
   }
   
   #form {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
   }
   
   #sidebar {
     width: 8%;
     align-items: center;
+    /* margin-left: 700px; */
   }
   
   #sector-container {
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    /* margin-left: 500px; */
   }
   
   #sec-filters {
     width: 80%;
     align-items: center;
     justify-content: space-between;
+    margin-left: 300px;
   }
   
   #sec-filters div {
     padding-bottom: 20px;
   }
+
+  #services{
+    /* margin-left: 400px; */
+    margin-bottom: 300px;
+    width: 100%;
+  }
   
   #chart {
    width: 1000px;
    height: 800px;
+   margin-left: 150px;
+  }
+
+  #services h3{
+    margin:0px;
   }
   
   .links {

@@ -14,7 +14,7 @@ Julie�s html page: Breaks the index into various components to see what inform
 * The 2013 to 2018 Winners and Losers tab: This tab illustrates company and industry performance using a line chart. Users can easily identify which companies have performed extremely well or extremely poorly over the past 4.8 years.
 * The asset by location tab: This tab illustrates where each company is headquartered. It also shows the size of the company and which cities are more dependent on certain industry sectors.
 
-Nick�s tab:
+Nick�s tab:This tab illustrates the top 5 highest market cap increases and decreases from 2013 to 2018.
 
 Rose�s tab: Through the use of filters, the user can screen by sector to see which combinations have larger market capitalization. The user can learn more about the stock by hovering over the dots.
 

@@ -15,17 +15,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    table = Base.classes.marketCap
-    session = Session(engine)
-    results = session.query(table).all()
-    tableList = []
-    for column in results:
-        tableData = {}        
-        tableList.append(tableData)
-    return render_template("index.html", data = json.dumps(tableList))
+    return render_template("index.html")
 
 @app.route('/julie')
-def year2013():
+def julie():
     table = Base.classes.marketCap
     session = Session(engine)
     results = session.query(table).all()
@@ -46,7 +39,7 @@ def year2013():
     return render_template("julie.html", data = json.dumps(tableList))
 
 @app.route('/elliot')
-def year2014():
+def elliot():
     table = Base.classes.histData
     session = Session(engine)
     results = session.query(table).all()
@@ -59,63 +52,12 @@ def year2014():
     return render_template("elliot.html", data = json.dumps(tableList))
 
 @app.route('/nick')
-def year2015():
-    table = Base.classes.completeData
-    session = Session(engine)
-    results = session.query(table).all()
-    tableList = []
-    for column in results:
-        tableData = {}
-        tableData["constituents"] = column.constituents
-        tableData["companyName"] = column.companyName
-        tableData["sector"] = column.sector
-        tableData["industryGroup"] = column.industryGroup
-        tableData["industry"] = column.industry
-        tableData["subIndustry"] = column.subIndustry
-        tableData["dividendAdjustedSplitAdjustedClosingStockPrice"] = column.dividendAdjustedSplitAdjustedClosingStockPrice
-        tableData["bevEbitdaMultiples"] = column.bevEbitdaMultiples
-        tableData["priceEarningsMultiples"] = column.priceEarningsMultiples
-        tableData["priceTangibleBook"] = column.priceTangibleBook
-        tableData["dividendYield"] = column.dividendYield
-        tableData["marketCapitalization"] = column.marketCapitalization
-        tableData["headquarterLocation"] = column.headquarterLocation
-        tableData["actual2018"] = column.actual2018
-        tableData["estimated2018"] = column.estimated2018
-        tableData["actual2017"] = column.actual2017
-        tableData["estimated2017"] = column.estimated2017
-        tableData["actual2016"] = column.actual2016
-        tableData["estimated2016"] = column.estimated2016
-        tableData["actual2015"] = column.actual2015
-        tableData["estimated2015"] = column.estimated2015
-        tableData["actual2014"] = column.actual2014
-        tableData["estimated2014"] = column.estimated2014
-        tableData["year"] = column.year
-        tableList.append(tableData)
-    return render_template("nick.html", data = json.dumps(tableList))
+def nick():
+    return render_template("nick.html")
 
 @app.route('/rose')
-def year2016():
-    table = Base.classes.rose
-    session = Session(engine)
-    results = session.query(table).all()
-    tableList = []
-    for column in results:
-        tableData = {}
-        tableData["symbol"] = column.symbol
-        tableData["name"] = column.name
-        tableData["sector"] = column.sector
-        tableData["price"] = column.price
-        tableData["priceEarnings"] = column.priceEarnings
-        tableData["dividendYield"] = column.dividendYield
-        tableData["earningsShare"] = column.earningsShare
-        tableData["yearTrailingLow"] = column.yearTrailingLow
-        tableData["yearTrailingHigh"] = column.yearTrailingHigh
-        tableData["cap"] = column.cap
-        tableData["ebitda"] = column.ebitda
-        tableData["priceSales"] = column.priceSales
-        tableData["priceBook"] = column.priceBook
-        tableList.append(tableData)
-    return render_template("rosev.html", data = json.dumps(tableList))
+def rose():
+    return render_template("rosev.html")
 
 @app.route('/roseData')
 def roseData():
@@ -143,16 +85,23 @@ def roseData():
 
 @app.route('/nickData')
 def nickData():
-    table = Base.classes.showreelTest
+    table = Base.classes.wL
     session = Session(engine)
     results = session.query(table).all()
     tableList = []
     for column in results:
         tableData = {}
-        tableData["symbol"] = column.symbol
-        tableData["price"] = column.price
-        tableData["date"] = column.date
+        tableData["companyName"] = column.companyName
+        tableData["sector"] = column.sector
+        tableData["marCap2013"] = column.marCap2013
+        tableData["marCap2018"] = column.marCap2018
+        tableData["difference"] = column.difference
+        tableData["percChange"] = column.percChange
+        tableData["category"] = column.category
+        tableData["Winner"] = column.Winner
+        tableData["Loser"] = column.Loser
         tableList.append(tableData)
     return jsonify(tableList)
+
 if __name__ == "__main__":
     app.run(debug=True)

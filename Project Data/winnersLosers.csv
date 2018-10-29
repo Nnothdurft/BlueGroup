@@ -1,0 +1,11 @@
+companyName,sector,marCap2013,marCap2018,difference,percChange,category,Winner,Loser
+"ABIOMED, Inc.",Health Care,1050.4,"16,264.40","15,214.00",1448,Winner,1448,0
+NVIDIA Corporation,Information Technology,9107.9,"139,335.40","130,227.50",1430,Winner,1430,0
+"Take-Two Interactive Software, Inc.",Communication Services,1291.7,"13,938.30","12,646.60",979,Winner,979,0
+Centene Corporation,Health Care,3228.6,"29,306.50","26,077.90",808,Winner,808,0
+"Advanced Micro Devices, Inc.",Information Technology,2800.7,"23,065.50","20,264.80",724,Winner,724,0
+"Harley-Davidson, Inc.",Consumer Discretionary,15399.1,"6,527.00","-8,872.10",-58,Loser,0,58
+eBay Inc.,Consumer Discretionary,71028.1,"28,449.60","-42,578.50",-60,Loser,0,60
+General Electric Company,Industrials,283589.9,"109,160.00","-174,429.90",-62,Loser,0,62
+"Viacom, Inc.",Communication Services,38974,"13,568.10","-25,405.90",-65,Loser,0,65
+"Mattel, Inc.",Consumer Discretionary,16102.7,"4,893.90","-11,208.80",-70,Loser,0,70

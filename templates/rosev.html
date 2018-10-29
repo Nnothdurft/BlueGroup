@@ -12,6 +12,8 @@
     <script src="{{url_for('static', filename='Rose/bundle.js')}}"></script>
     <link rel="stylesheet" href="/static/Rose/css/style.css">
     <link rel="stylesheet" href="/static/Rose/css/application.css">
+    <link rel="stylesheet" media="screen" href="/static/Rose/chart.css">
+
     <title>Stock Charts</title>
 </head>
 <body>
@@ -31,27 +33,7 @@
             </nav>
         </div>
     </header>
-    <section id ="main">
-        <div class="container">
-            <article id="main-col">
-                <h1 class="page-title"> MARKET CAP CHART</h1>
-                <ul id="services">
-                    <li>
-                        <h3>Market Capitalization  by Sector</h3>
-                        <p> Market Capitalization(market cap)is the market value of a publicly traded company's outstanding shares. This is equal to the share price multiplied by the number of shares outstanding.</p>
-                        <p> The chart below is an indication of the listed companies performance by sector. By hovering over the dots one can learn more about each individual company. </p>
-   
-                    </li>
-   
-   
-                </ul>
-   
-   
-            </article>
-   
-            </div>
-   
-    </section>
+    
         <div id="main">
             <div id="form">
                 <aside id="sidebar">
@@ -109,6 +91,78 @@
                 </div>
             </section>
         </div>
+        <section id ="main">
+            <div class="container">
+                <article id="main-col">
+                    <h1 class="page-title"> MARKET CAP CHART</h1>
+                    <ul id="services">
+                        <li>
+                            <h3>Market Capitalization  by Sector</h3>
+                            <p> Market Capitalization(market cap)is the market value of a publicly traded company's outstanding shares. This is equal to the share price multiplied by the number of shares outstanding.</p>
+                            <p> The chart below is an indication of the listed companies performance by sector. By hovering over the dots one can learn more about each individual company. </p>
+       
+                        </li>
+       
+       
+                    </ul>
+       
+       
+                </article>
+       
+                </div>
+       
+        </section>
+    <div class="chartItems">
+        <div id="leftChart">
+            <section>
+                <h1> Winners (Top Three)</h1>
+                <p> This is based on comparison between the increase of market cap between 2013,2015 and 2018</p>
+            </section>
+            <div id="winnerGraphic"></div>
+        </div>
+        <div id="winnerGraphic"></div>
+        <div id="rightChart">
+            <section>
+                <h1> Losers (Bottom Three)</h1>
+                <p> This is based on comparison between the decrease of market cap between 2013,2015 and 2018</p>
+            </section>
+            <div id="loserGraphic"></div>
+        </div>
+        
+        
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="/static/Rose/chart.js"></script>
+        <script>
+            var chart = new Chart(500, 300, "#loserGraphic");
+            
+            var chartData = [ {name: 'Stericycle', value: [{"2013":9956}, {"2015":10249}, {"2018":4556}]}, 
+                    {name: 'Newfield', value: [{"2013":6812}, {"2015":5263}, {"2018":4669}]}, 
+                    {name: 'Quanta', value: [{"2013":3337}, {"2015":3235}, {"2018":4790}]} ];	
+            
+            Chart.render(chartData, chart);
+            
+            chartData = [ {name: 'Stericycle', value: [{"2013":9956}, {"2015":10249}, {"2018":4556}]}, 
+                    {name: 'Newfield', value: [{"2013":6812}, {"2015":5263}, {"2018":4669}]}, 
+                    {name: 'Quanta', value: [{"2013":3337}, {"2015":3235}, {"2018":4790}]} ];
+            
+            Chart.render(chartData, chart);
+        </script>
+        <script>
+            var chart = new Chart(500, 300, "#winnerGraphic");
+            
+            var chartData = [ {name: 'Apple', value: [{"2013":500739.1}, {"2015":586859}, {"2018":1059251}]}, 
+                    {name: 'Microsoft', value: [{"2013":312297.5}, {"2015":316831}, {"2018":834238}]}, 
+                    {name: 'Amazon', value: [{"2013":182539}, {"2015":443169}, {"2018":834238}]} ];	
+            
+            Chart.render(chartData, chart);
+            
+            chartData = [ {name: 'Apple', value: [{"2013":500739.1}, {"2015":586859}, {"2018":1059251}]}, 
+                    {name: 'Microsoft', value: [{"2013":312297.5}, {"2015":316831}, {"2018":834238}]}, 
+                    {name: 'Amazon', value: [{"2013":182539}, {"2015":443169}, {"2018":834238}]} ];	
+            
+            Chart.render(chartData, chart);
+        </script>
+    </div>
     <footer>
         <p>Blue Group(Elliot,Nick,Julie,Rose) &copy; 2018</p>
     </footer>

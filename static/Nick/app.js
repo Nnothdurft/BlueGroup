@@ -1,107 +1,138 @@
-let width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2;
+var margin = {top: 50, right: 20, bottom: 10, left: 200},
+    width = 1200 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
 
-let color = d3.scale.category20();
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], .3);
 
-let pie = d3.layout.pie()
-    .value(d => d.count)
-    .sort(null);
+var x = d3.scale.linear()
+    .rangeRound([0, width]);
 
-let arc = d3.svg.arc()
-    .innerRadius(radius - 100)
-    .outerRadius(radius - 20);
+var color = d3.scale.ordinal()
+    .range(["red", "green"]);
 
-let svg = d3.select("#donut").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("top");
 
-let path = svg.selectAll("path");
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
 
-d3.csv("static/Nick/pieChart.csv", d => +d.marketCap, function(error, data){
-  let companyBySector = d3.nest()
-      .key(d => d.sector)
-      .entries(data)
-      .reverse();
-  console.log(d => d.sector);
-  let label = d3.select("form").selectAll("label")
-      .data(companyBySector)
-      .enter().append("label");
+var svg = d3.select("#figure").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("id", "d3-plot")
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  color.domain(["Loser", "Winner"]);
   
-  label.append("input")
-      .attr("type", "radio")
-      .attr("name", "companyName")
-      .attr("value", d => d.key())
-      .on("change", change)
-      .filter(function(d, i){return !i;})
-      .each(change)
-      .property("checked", true);
+  d3.json("/nickData", function(data) {
+  data.forEach(function(d) {
+    // calc percentages
+    d["Loser"] = +d.Loser;
+    d["Winner"] = +d.Winner;
+    var x0 = -1*(d["Loser"]);
+    var idx = 0;
+    
+    d.boxes = color.domain().map(function(name) {return {name: name, x0: x0, x1: x0 += +d[name], N: (+d.Winner + +d.Loser), n: +d[name]+"%"}; });
+  });
 
-  label.append("span")
-      .text(function(d) { return d.key; });
+  var min_val = d3.min(data, function(d) {
+          return d.boxes["0"].x0;
+          });
 
-  function change(sector){
-    let data0 = path.data(),
-        data1 = pie(sector.values);
+  var max_val = d3.max(data, function(d) {
+          return d.boxes["1"].x1;
+          });
 
-    path = path.data(data1, key);
+  x.domain([min_val, max_val]).nice();
+  y.domain(data.map(function(d) { return d.companyName; }));
 
-    path.enter().append("path")
-        .each(function(d, i) { this._current = findNeighborArc(i, data0, data1, key) || d; })
-        .attr("fill", function(d) { return color(d.data.region); })
-        .append("title")
-        .text(function(d) { return d.data.region; });
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
 
-    path.exit()
-        .datum(function(d, i) { return findNeighborArc(i, data1, data0, key) || d; })
-        .transition()
-        .duration(750)
-        .attrTween("d", arcTween)
-        .remove();
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
 
-    path.transition()
-        .duration(750)
-        .attrTween("d", arcTween);
-  }
+  var vakken = svg.selectAll(".company")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d) { return "translate(0," + y(d.companyName) + ")"; });
+
+  var bars = vakken.selectAll("rect")
+      .data(function(d) { return d.boxes; })
+    .enter().append("g").attr("class", "subbar");
+
+  bars.append("rect")
+      .attr("height", y.rangeBand())
+      .attr("x", function(d) { return x(d.x0); })
+      .attr("width", function(d) { return x(d.x1) - x(d.x0); })
+      .style("fill", function(d) { return color(d.name); });
+
+  bars.append("text")
+      .attr("x", function(d) { return x(d.x0); })
+      .attr("y", y.rangeBand()/2)
+      .attr("dy", "0.5em")
+      .attr("dx", "0.5em")
+      .style("font" ,"15px sans-serif")
+      .style("text-anchor", "begin")
+      .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n : "" });
+
+  vakken.insert("rect",":first-child")
+      .attr("height", y.rangeBand())
+      .attr("x", "1")
+      .attr("width", width)
+      .attr("fill-opacity", "0.5")
+      .style("fill", "#F5F5F5")
+      .attr("class", function(d,index) { return index%2==0 ? "even" : "uneven"; });
+
+  svg.append("g")
+      .attr("class", "y axis")
+  .append("line")
+      .attr("x1", x(0))
+      .attr("x2", x(0))
+      .attr("y2", height);
+
+  var startp = svg.append("g").attr("class", "legendbox").attr("id", "mylegendbox");
+  // this is not nice, we should calculate the bounding box and use that
+  var legend_tabs = [0, 120];
+  var legend = startp.selectAll(".legend")
+      .data(color.domain().slice())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(" + legend_tabs[i] + ",-45)"; });
+
+  legend.append("rect")
+      .attr("x", 0)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", 22)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "begin")
+      .style("font" ,"10px sans-serif")
+      .text(function(d) { return d; });
+
+  d3.selectAll(".axis path")
+      .style("fill", "none")
+      .style("stroke", "#000")
+      .style("shape-rendering", "crispEdges")
+
+  d3.selectAll(".axis line")
+      .style("fill", "none")
+      .style("stroke", "#000")
+      .style("shape-rendering", "crispEdges")
+
+  var movesize = width/2 - startp.node().getBBox().width/2;
+  d3.selectAll(".legendbox").attr("transform", "translate(" + movesize  + ",0)");
+
+
 });
-
-function key(d){
-  return d.data.sector;
-}
-
-function findNeighborArc(i, data0, data1, key) {
-  var d;
-  return (d = findPreceding(i, data0, data1, key)) ? {startAngle: d.endAngle, endAngle: d.endAngle}
-      : (d = findFollowing(i, data0, data1, key)) ? {startAngle: d.startAngle, endAngle: d.startAngle}
-      : null;
-}
-
-// Find the element in data0 that joins the highest preceding element in data1.
-function findPreceding(i, data0, data1, key) {
-  var m = data0.length;
-  while (--i >= 0) {
-    var k = key(data1[i]);
-    for (var j = 0; j < m; ++j) {
-      if (key(data0[j]) === k) return data0[j];
-    }
-  }
-}
-
-// Find the element in data0 that joins the lowest following element in data1.
-function findFollowing(i, data0, data1, key) {
-  var n = data1.length, m = data0.length;
-  while (++i < n) {
-    var k = key(data1[i]);
-    for (var j = 0; j < m; ++j) {
-      if (key(data0[j]) === k) return data0[j];
-    }
-  }
-}
-
-function arcTween(d) {
-  var i = d3.interpolate(this._current, d);
-  this._current = i(0);
-  return function(t) { return arc(i(t)); };
-}

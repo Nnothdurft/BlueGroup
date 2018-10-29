@@ -20,6 +20,25 @@ ul{
     padding:0;
 }
 
+
+.chartItems{
+    width:100%;
+    display: table;
+    margin-bottom: 200px;
+    margin-right: 600px;
+
+}
+#leftChart{
+    float: left;
+    margin-left: 400px;
+    /* width: 50%; */
+}
+
+#rightChart{
+    float: right;
+    padding-right: 600px;
+}
+
 .button_1{
     height:38px;
     background:maroon;
@@ -171,7 +190,9 @@ aside#sidebar .quote input, aside#sidebar .quote textarea{
 
 #main{
     float:left;
-    width:65%;
+    width:100%;
+    margin-bottom: 10px;
+    /* height:200px; */
 }
 
 /*services*/
